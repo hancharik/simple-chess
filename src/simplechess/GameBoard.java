@@ -21,9 +21,10 @@ public class GameBoard extends JPanel{
    
     int size = 8;
     public Piece[][] board;
+    public int[][] pieceLocations;
     ArrayList <Piece> playerOnePieces = new ArrayList();
      ArrayList <Piece> playerTwoPieces = new ArrayList();
-      Timer timer; 
+      
      
     public GameBoard(){
         
@@ -43,6 +44,7 @@ public class GameBoard extends JPanel{
  private void makeBoard(){
      
      board = new Piece[size][size];
+     pieceLocations = new int[size][size];
      createPlayerPieces(playerOnePieces, 1);
      createPlayerPieces(playerTwoPieces, 2);
      addPiecesToBoard();
@@ -67,18 +69,22 @@ public class GameBoard extends JPanel{
      for(int i = 0; i < size; i++ ){
          
            board[0][i] = playerOnePieces.get(i + size);
+           pieceLocations[0][i] = 3;
        //    playerOnePieces.get(i + size).setX(0);
       //     playerOnePieces.get(i + size).setY(i);
         board[1][i] = playerOnePieces.get(i);
+           pieceLocations[1][i] = 1;
     //   playerOnePieces.get(i).setX(1);
     //    playerOnePieces.get(i).setY(i);
      }
      
        for(int i = 0; i < size; i++ ){
           board[6][i] = playerTwoPieces.get(i);
+          pieceLocations[6][i] = 2;
         //   playerTwoPieces.get(i).setX(6);
       //  playerTwoPieces.get(i).setY(i);
          board[7][i] = playerTwoPieces.get(i + size);
+          pieceLocations[7][i] = 4;
         // playerTwoPieces.get(i + size).setX(7);
         //   playerTwoPieces.get(i + size).setY(i);
      }
@@ -86,41 +92,77 @@ public class GameBoard extends JPanel{
        for(int i = 2; i < 6; i++ ){
         for(int j = 0; j < size; j++ ){
           board[i][j] = new Piece();
+          pieceLocations[i][j] = 0;
        
       }
      }  
-    board[0][0] = new Piece();  
-    board[5][5] = playerOnePieces.get(0);  
+       // THESE WORK!!!!
+   // board[0][0] = new Piece();  
+   // board[5][5] = new Pawn(1);//playerOnePieces.get(0);  
+   //   board[4][4] = new Pawn(2);//playerOnePieces.get(0);  
+     //  board[0][2] = new Piece();
  fillBricks(); 
        printOutArrays();
  } // end add pieces
  
   public void fillBricks(){
-      
+        
+            Piece p;
+        
            for(int i = 0; i < size; i++ ){
-         for(int j = 0; j < size; j++ ){
-            Piece p = new Piece();//board[i][j];
-             p = board[i][j];
-           // // p.setX(i);
-           //  p.setY(j);
-           
-          this.add(p);
-          //  p.setText(p.getY()/100 +"," + p.getX()/100);
-       // p.repaint();
-     }
-     }  
+            for(int j = 0; j < size; j++ ){
+             
+          
+             
+                switch(pieceLocations[i][j]){
+                    case 1 :  p = new Pawn(1); break;
+                    case 2 : p = new Pawn(2); break;
+                    case 3 :  p = new Pro(1); break;
+                    case 4 :  p = new Pro(2); break;
+                    default :  p = new Piece();  // leaving out case 0 because same as default
+                }
+             
+             
+                board[i][j] = p;
+                this.add(board[i][j]);
+    
+             } // end j
+            }  // end i
       
   }
+  
+    public void refillBricks(){
+        
+               Piece p;
+        
+           for(int i = 0; i < size; i++ ){
+            for(int j = 0; j < size; j++ ){
+             
+          this.remove(board[i][j]);
+             
+                switch(pieceLocations[i][j]){
+                    case 1 :  p = new Pawn(1); break;
+                    case 2 : p = new Pawn(2); break;
+                    case 3 :  p = new Pro(1); break;
+                    case 4 :  p = new Pro(2); break;
+                    default :  p = new Piece();  // leaving out case 0 because same as default
+                }
+             
+             
+                board[i][j] = p;
+                this.add(board[i][j]);
+    
+             } // end j
+            }  // end i
+  }
   public void printOutArrays(){
-      
-      for(int i = 0; i < playerTwoPieces.size(); i++){
-        System.out.println("array # " + i + ":" + playerTwoPieces.get(i).x +","+ playerTwoPieces.get(i).y);  
-      }
+   
       
         for(int i = 0; i < size; i++ ){
          for(int j = 0; j < size; j++ ){
-             board[i][j].setText(i +"," + j);
-      
+              
+            board[i][j].setText(i +"," + j);//board[i][j].setText(""+pieceLocations[i][j]);
+      // System.out.println("board[" + i + "][" + j +"] is a "+ pieceLocations[i][j]);  
      }
      }  
         
