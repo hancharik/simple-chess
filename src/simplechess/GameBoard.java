@@ -20,6 +20,8 @@ import javax.swing.Timer;
 public class GameBoard extends JPanel{
    
     int size = 8;
+    int playerOnePieceNumber = 0;
+    int playerTwoPieceNumber  = 0;
     public Piece[][] board;
     public int[][] pieceLocations;
     ArrayList <Piece> playerOnePieces = new ArrayList();
@@ -48,6 +50,7 @@ public class GameBoard extends JPanel{
      createPlayerPieces(playerOnePieces, 1);
      createPlayerPieces(playerTwoPieces, 2);
      addPiecesToBoard();
+    // System.out.println("playerOnePieceNumber = " + playerOnePieceNumber + ", playerTwoPieceNumber = " + playerTwoPieceNumber + "!!");
  } // end make board
  
  private void createPlayerPieces(ArrayList pieces, int playerNumber){
@@ -69,11 +72,13 @@ public class GameBoard extends JPanel{
      for(int i = 0; i < size; i++ ){
          
            board[0][i] = playerOnePieces.get(i + size);
-           pieceLocations[0][i] = 3;
+           pieceLocations[0][i] = 1;//3;
+           playerOnePieceNumber++;
        //    playerOnePieces.get(i + size).setX(0);
       //     playerOnePieces.get(i + size).setY(i);
         board[1][i] = playerOnePieces.get(i);
            pieceLocations[1][i] = 1;
+           playerOnePieceNumber++;
     //   playerOnePieces.get(i).setX(1);
     //    playerOnePieces.get(i).setY(i);
      }
@@ -81,11 +86,12 @@ public class GameBoard extends JPanel{
        for(int i = 0; i < size; i++ ){
           board[6][i] = playerTwoPieces.get(i);
           pieceLocations[6][i] = 2;
+          playerTwoPieceNumber++;
         //   playerTwoPieces.get(i).setX(6);
       //  playerTwoPieces.get(i).setY(i);
          board[7][i] = playerTwoPieces.get(i + size);
-          pieceLocations[7][i] = 4;
-        // playerTwoPieces.get(i + size).setX(7);
+          pieceLocations[7][i] = 2;//4;
+        playerTwoPieceNumber++;// playerTwoPieces.get(i + size).setX(7);
         //   playerTwoPieces.get(i + size).setY(i);
      }
        
@@ -102,7 +108,7 @@ public class GameBoard extends JPanel{
    //   board[4][4] = new Pawn(2);//playerOnePieces.get(0);  
      //  board[0][2] = new Piece();
  fillBricks(); 
-       printOutArrays();
+       //printOutArrays();
  } // end add pieces
  
   public void fillBricks(){
@@ -156,7 +162,7 @@ public class GameBoard extends JPanel{
             }  // end i
   }
   public void printOutArrays(){
-   
+  
       
         for(int i = 0; i < size; i++ ){
          for(int j = 0; j < size; j++ ){

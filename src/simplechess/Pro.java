@@ -31,7 +31,7 @@ public class Pro extends Piece{
           colorValue = new Color(255,0,0);   
         }
         
-        
+        this.setText("pro");
          setBackground(colorValue);
     }
     

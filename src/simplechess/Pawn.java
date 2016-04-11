@@ -36,7 +36,7 @@ public class Pawn extends Piece{
         }
         
         
-        
+         this.setText("pawn");
         setBackground(colorValue);
         
     }

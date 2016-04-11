@@ -11,11 +11,10 @@ package simplechess;
  */
 public class SimpleChess {
 
-    /**
-     * @param args the command line arguments
-     */
+    static SCFrame scf;// = new SCFrame();
+    
     public static void main(String[] args) {
-       SCFrame scf = new SCFrame();
+       scf = new SCFrame();
     }
     
 }
